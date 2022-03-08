@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <div class="row">
+    <div class="col-md-6 offset-md-3 py-5">
+      <h1>Chat</h1>
+
+      <br>
+      <div style="display:none">
+        <h3 class="clientId">Connected like:</h3>
+      </div>
+
+      <form onsubmit="connect(this); return false">
+        <input name="clientId" type="text" style="width: 88px;" >
+        <input type="submit" value="Connect" >
+      </form>
+
+      <br>
+      <div >
+        <h3>Messages</h3>
+        <button onclick="clear()">Clear</button>
+        <p id="rcvMessage" style="white-space: pre-line; background-color: slategrey; "> 
+         </p>
+        ><span class="clientId"></span> - 
+      </div>
+      <form  onsubmit="sendMessage(this); return false">
+        <input name="message" type="textarea" >
+        <input id="sendButton" type="submit" value="Send">
+      </form>
+    </div>
+  </div>
+
+    
+</body>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+  integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+  crossorigin="anonymous"></script>
+<script>
+  let socket;
+  let clientId;
+
+      function connect(con) {
+      console.log("Opening connection...");
+      console.log(con);
+      console.log(con.clientId.value);
+      let hostname = location.hostname;
+      socket = new WebSocket("ws://localhost:9090/socket?clientId="+ con.clientId.value);
+      socket.onopen = () => {
+        console.log("Connection established!");
+        clientId = con.clientId.value;
+      }
+      socket.onmessage = (msg)=>{
+        showMessages(msg);
+      }
+    }
+
+   function sendMessage(obj){
+      let msg = {
+        "clientId": clientId,
+        "message": obj.message.value
+      }
+      // obj = ""
+      socket.send(JSON.stringify(msg));
+    }
+
+    function showMessages(msg){
+      let resp = JSON.parse(msg.data)
+      console.log(resp.clientId);
+      let base = resp.clientId ? ">" + resp.clientId: "";
+      let messageEl = $("#rcvMessage");
+      messageEl.text(messageEl.text() + base +" - "+resp.message + " \n ");
+    }
+</script>
+</html>

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo 'running this'
+pwd
+
+cd frontend
+yarn run build
+cd ..
+go run main/main.go
+echo 'finish'
