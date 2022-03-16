@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+    <title>Advance data</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="assets/css/main.css"/>
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css"/>
+    </noscript>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"/>
+    <style>
+        #tableData {
+            background: #2870954f !important;
+        }
+
+        tbody {
+            color: antiquewhite;
+        }
+    </style>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <!-- Note: The "styleN" class below should match that of the banner element. -->
+    <header id="header" class="alt style2">
+        <a href="index.html" class="logo"><strong>Monitoring</strong> <span>Advance Data</span></a>
+        <nav>
+            <a href="#menu">Menu</a>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="advance.html">Landing</a></li>
+        </ul>
+        <ul class="actions stacked">
+            <li><a href="#" class="button primary fit">Get Started</a></li>
+        </ul>
+    </nav>
+
+    <!-- Banner -->
+    <section id="banner" class="style2" style="height: 100px; padding: 10px;">
+        <div class="inner">
+							<span class="image">
+								<img src="images/pic07.jpg" alt=""/>
+							</span>
+            <header class="major">
+                <h1>Advance Data</h1>
+            </header>
+        </div>
+    </section>
+
+    <!-- Main -->
+    <div id="main">
+
+        <!-- One -->
+        <section id="one">
+            <div class="inner">
+                <header class="major">
+                    <h2>Data in real Time</h2>
+                </header>
+                <table id="tableData" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>DC_Number</th>
+                        <th>Features</th>
+                        <th>Average request time</th>
+                        <th>Last Request</th>
+                        <th>Last Update</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </section>
+
+        <!-- Three -->
+        <section id="three">
+            <div class="inner">
+                <ul class="actions">
+                    <li><a href="index.html" class="button">Home</a></li>
+                </ul>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/api_socket.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $.fn.dataTable.Api.register('row().rowCells()', function () {
+    return this.cells(this.index(),this.columns()[0]);
+});
+        changeFadvance();
+        connect();
+    });
+
+</script>
+
+
+</body>
+</html>
