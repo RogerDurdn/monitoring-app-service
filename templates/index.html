@@ -11,9 +11,23 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.6.12/c3.min.js"></script>
 		<style>
 			.bigNumber{
 				font-size:60px;
+			}
+
+			#chartA {
+				position: absolute !important;
+				left: 0px;
+				top: 0px;
+				z-index: -1;
+				-webkit-filter: blur(1px);
+				-o-filter: blur(1px);
+				-ms-filter: blur(2px);
+				filter: blur(2px);
+				width: 100px;
+				height: 100px;
 			}
 
 			.tracking-in-expand {
@@ -64,6 +78,7 @@
 							<header class="major">
 								<h1>Monitor your app with Go</h1>
 							</header>
+							<div id="chartA"></div>
 							<div class="content">
 								<p>
 									A dynamic app to monitoring apps <br/>
@@ -74,6 +89,8 @@
 								</ul>
 							</div>
 						</div>
+
+
 					</section>
 
 				<!-- Main -->
@@ -168,7 +185,7 @@
 			</div>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 			<script src="assets/js/jquery.scrolly.min.js"></script>
 			<script src="assets/js/jquery.scrollex.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
@@ -176,12 +193,41 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/api_socket.js"></script>
+		<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.6.12/c3.min.js"></script>
 
 	<script>
 
 		$(document).ready(function () {
 			changeFindex();
 			connect();
+
+			var chartA = c3.generate({
+				bindto: '#chartA',
+				data: {
+					x: 'x',
+					columns: [
+						['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06', '2013-01-07', '2013-01-08', '2013-01-09', '2013-01-10', '2013-01-11', '2013-01-12'],
+						['sample', 30, 200, 100, 400, 150, 250, 30, 200, 100, 400, 150, 250]
+					]
+				},
+				axis: {
+					x: {
+						type: 'timeseries',
+						tick: {
+							count: 6,
+							format: '%Y-%m-%d'
+						}
+					}
+				},
+				size: {
+					width: 1000,
+					height: 300
+				},
+				color: {
+					pattern: ['#1f77b4', '#aec7e8', '#ff7f0e']
+				}
+			});
 		});
 
 	</script>
